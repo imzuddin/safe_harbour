@@ -1,0 +1,6 @@
+aiofiles==0.8.0
+dataclasses==0.8
+fastapi==0.68.2
+pydantic==1.9.2
+starlette==0.14.2
+typing_extensions==4.1.1
