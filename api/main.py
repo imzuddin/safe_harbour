@@ -5,7 +5,7 @@ from fastapi.openapi.docs  import (
 )
 
 from utils.dynamic_cors_middleware import DynamicCorsMiddleware
-from routers import info
+from routers import info, users
 
 api_path_prefix = os.environ.get('API_PATH_PREFIX', '/api/v1')
 
@@ -13,6 +13,7 @@ app = FastAPI(docs_url=None, redoc_url=None)
 
 app.add_middleware(
     DynamicCorsMiddleware,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -22,6 +23,7 @@ app.add_middleware(
 
 ## Rest API 
 app.include_router(info.router, prefix=api_path_prefix)
+app.include_router(users.router, prefix=api_path_prefix)
 
 ## Security 
 
