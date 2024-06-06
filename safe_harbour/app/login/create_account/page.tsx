@@ -15,12 +15,35 @@ export default function Page() {
 
     const router = useRouter();
 
-    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
     
         const formData = new FormData(event.currentTarget);
-    
-        console.log(formData.get('Fname'), formData.get('email'))
+        const userData = {
+            username: formData.get('Fname'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+        }
+
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/create_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+
+            if (response.ok) {
+                console.log('User Created')
+            } else {
+                console.error('Failed to Create User')
+            }
+        } catch (error) {
+            console.error("An error occuried while creating the user", error)
+        }
+
+
     }
 
     return (
